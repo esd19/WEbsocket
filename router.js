@@ -1,20 +1,13 @@
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
+const http = require('http'); // Cambiado a HTTP en lugar de HTTPS
 const WebSocket = require('ws');
 
 const app = express();
-const port = 2091;
+// Usar un puerto dinámico para compatibilidad con Render o predeterminado
+const port = process.env.PORT || 2091;
 
-// Leer certificado SSL
-const sslOptions = {
-    key: fs.readFileSync('home/ssl/keys/b59a6_1d0f5_3356e6dc25a77abe3b1b9ae5adeeb153.key'),
-    cert: fs.readFileSync('home/ssl/certs/ancpuac_org_b59a6_1d0f5_1739445225_ff7b14aa69d551460bb5dda7340841b9.crt'),
-    //ca: fs.readFileSync('path/to/your/ca_bundle.crt') // Si es necesario
-};
-
-// Crear servidor HTTPS con Express
-const server = https.createServer(sslOptions, app);
+// Crear servidor HTTP con Express
+const server = http.createServer(app);
 
 // Crear servidor WebSocket con la opción de manejar mensajes como texto
 const wss = new WebSocket.Server({ server });
@@ -27,7 +20,7 @@ app.get('/', (req, res) => {
     res.send(`
         <h1>WebSocket con Express</h1>
         <script>
-            const ws = new WebSocket('wss://162.241.43.115:${port}');
+            const ws = new WebSocket('ws://' + window.location.host);
 
             ws.onopen = () => {
                 console.log('Conexión WebSocket abierta');
@@ -95,7 +88,5 @@ wss.on('connection', (ws) => {
 
 // Iniciar el servidor
 server.listen(port, () => {
-    console.log(`Servidor ejecutándose en https://54.191.253.12:${port}`);
+    console.log(`Servidor ejecutándose en http://localhost:${port}`);
 });
-
-console.log("hola")
