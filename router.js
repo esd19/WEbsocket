@@ -95,8 +95,7 @@ wss.on('connection', (ws) => {
 
 // Iniciar el servidor
 server.listen(port, () => {
-    console.log(`Servidor ejecutándose en https://ancpuac.org:${port}`);
+    console.log(`Servidor ejecutándose en https://54.191.253.12:${port}`);
 });
 
 console.log("hola")
-
