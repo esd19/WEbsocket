@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('http'); // Cambiado a HTTP en lugar de HTTPS
+const http = require('https'); // Cambiado a HTTP en lugar de HTTPS
 const WebSocket = require('ws');
 
 const app = express();
@@ -20,8 +20,7 @@ app.get('/', (req, res) => {
     res.send(`
         <h1>WebSocket con Express</h1>
         <script>
-            const ws = new WebSocket('ws://' + window.location.host);
-
+            const ws = new WebSocket('wss://' + window.location.host);
             ws.onopen = () => {
                 console.log('Conexión WebSocket abierta');
                 ws.send('1');  // Enviar el mensaje '1' al servidor al abrir la conexión
@@ -88,5 +87,5 @@ wss.on('connection', (ws) => {
 
 // Iniciar el servidor
 server.listen(port, () => {
-    console.log(`Servidor ejecutándose en http://localhost:${port}`);
+    console.log(`Servidor ejecutándose en el puerto ${port}`);
 });
