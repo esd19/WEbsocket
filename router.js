@@ -1,5 +1,5 @@
 const express = require('express');
-const http = require('https'); // Cambiado a HTTP en lugar de HTTPS
+const http = require('http'); // Cambiar a HTTP
 const WebSocket = require('ws');
 
 const app = express();
